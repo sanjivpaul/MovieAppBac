@@ -7,7 +7,7 @@ const movieDetailsSchema = new mongoose.Schema(
     overview: { type: String, required: true },
     poster_path: { type: String, required: true },
     release_date: { type: String },
-    runtime: { type: Number },
+    runtime: { type: String },
     vote_average: { type: Number },
     genres: [{ name: String }],
     backdrop_path: { type: String },
