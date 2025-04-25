@@ -1,10 +1,12 @@
-require("dotenv").config();
-const express = require("express");
-const mongoose = require("mongoose");
-const cors = require("cors");
-const movieRoutes = require("./routes/movies");
+import dotenv from "dotenv";
+import express from "express";
+import cors from "cors";
+import movieRoutes from "./routes/movies.js";
+import { connectDatabase } from "./db/index.js";
 
 const app = express();
+
+dotenv.config();
 
 // Middleware
 app.use(cors());
@@ -14,15 +16,12 @@ app.use(express.json());
 app.use("/api", movieRoutes);
 
 // Database connection
-mongoose
-  .connect(process.env.MONGODB_URI)
+connectDatabase()
   .then(() => {
-    console.log("Connected to MongoDB");
-    const PORT = process.env.PORT || 3000;
-    app.listen(PORT, () => {
-      console.log(`Server running on port ${PORT}`);
+    app.listen(process.env.PORT, () => {
+      console.log(`Server is running at port : ${process.env.PORT}`);
     });
   })
-  .catch((err) => console.error("MongoDB connection error:", err));
-
-module.exports = app;
+  .catch((err) => {
+    console.log("Mongo db connection failed", err);
+  });

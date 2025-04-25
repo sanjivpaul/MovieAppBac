@@ -1,6 +1,6 @@
-const mongoose = require("mongoose");
+import mongoose, { Schema } from "mongoose";
 
-const movieDetailsSchema = new mongoose.Schema(
+const movieDetailsSchema = new Schema(
   {
     id: { type: Number, required: true, unique: true },
     title: { type: String, required: true },
@@ -17,4 +17,4 @@ const movieDetailsSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-module.exports = mongoose.model("MovieDetails", movieDetailsSchema);
+export const MovieDetails = mongoose.model("MovieDetails", movieDetailsSchema);
